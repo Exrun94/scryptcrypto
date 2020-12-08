@@ -11,10 +11,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CryptoListComponent } from './crypto-list/crypto-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    CryptoListComponent
   ],
   imports: [
     BrowserModule,
