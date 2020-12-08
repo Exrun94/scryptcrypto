@@ -18,7 +18,7 @@ import { CryptoListComponent } from './crypto-list/crypto-list.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    CryptoListComponent
+    CryptoListComponent,
   ],
   imports: [
     BrowserModule,
