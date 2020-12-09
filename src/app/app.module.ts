@@ -10,14 +10,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CryptoListComponent } from './crypto-list/crypto-list.component';
-import { PaginationComponent } from './crypto-list/pagination/pagination.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CryptoListComponent,
-    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,10 @@ import { PaginationComponent } from './crypto-list/pagination/pagination.compone
     NoopAnimationsModule,
     HttpClientModule,
     CoreModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

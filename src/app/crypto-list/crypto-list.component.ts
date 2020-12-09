@@ -11,7 +11,8 @@ import { CoinsService } from '../services/coins.service';
 export class CryptoListComponent implements OnInit {
 
   coinsData: ICoins[] = [];
-
+  p: number = 1;
+  currency: any;
 
   constructor(private coinsService: CoinsService) { }
 
@@ -21,6 +22,24 @@ export class CryptoListComponent implements OnInit {
       console.log(data)
       this.coinsData = data;
     })
+  }
+
+  currencySearchBar() {
+    if(this.currency == '') {
+     this.ngOnInit();
+    } else {
+      this.coinsData = this.coinsData.filter(res => {
+        return res.name.toLowerCase().match(this.currency.toLowerCase());
+      })
+    }
+  }
+
+  key: any;
+  reverse: boolean = false;
+
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
 

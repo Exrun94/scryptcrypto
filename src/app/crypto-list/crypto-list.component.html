@@ -4,31 +4,42 @@
       </div>
 </div> -->
 
+
+
 <div>
+    
+    <nav class="navbar">
+        <input class="form-control" type="text" name="currency" [(ngModel)]="currency" (ngModelChange)="currencySearchBar()"
+        placeholder="Search for a currency">
+    </nav>
+    <div class="d-flex justify-content-center">
+        <pagination-controls (pageChange) = "p = $event"></pagination-controls>
+    </div>
+    
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
-            <th class="col">#</th>
+            <th class="col" (click)="sort('market_cap_rank')">#&nbsp;<i class="fa fa-sort"></i></th>
             <th class="col"></th>
-            <th class="col">Currency</th>
-            <th class="col">Price</th>
-            <th class="col">1h</th>
-            <th class="col">24h</th>
-            <th class="col">7d</th>
-            <th class="col">Market Cap</th>
-            <th class="col">Volume</th>
-            <th class="col">Circulating Supply</th>
+            <th class="col" (click)="sort('name')">Currency&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('current_price')">Price&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('price_change_percentage_1h_in_currency')">1h&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('price_change_percentage_24h_in_currency')">24h&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('price_change_percentage_7d_in_currency')">7d&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('market_cap')">Market Cap&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('total_volume')">24h Volume&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="col" (click)="sort('circulating_supply')">Circulating Supply&nbsp;<i class="fa fa-sort"></i></th>
             <th class="col">7 Days Change</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let coin of coinsData">
+        <tr *ngFor="let coin of coinsData | orderBy: key: reverse | paginate:{itemsPerPage:25, currentPage:p};">
             <th scope="row">{{coin.market_cap_rank}}</th>
             <td><img class="icon" src="{{coin.image}}"></td>
             <td>{{coin.name}}<span class="text-muted"> {{coin.symbol.toUpperCase()}}</span></td>
             <td>${{coin.current_price}}</td>
             <td
-             *ngIf="coin.price_change_percentage_1h_in_currency > 0"
+             *ngIf="coin.price_change_percentage_1h_in_currency > 0 && coin.price_change_percentage_1h_in_currency !== null"
               style="color:yellowgreen;">
                 {{coin.price_change_percentage_1h_in_currency.toFixed(1)}}%
             </td>
@@ -77,5 +88,7 @@
         </tr>
     </tbody>
 </table>
-
+<div class="d-flex justify-content-center">
+    <pagination-controls (pageChange) = "p = $event"></pagination-controls>
+</div>
 </div>
