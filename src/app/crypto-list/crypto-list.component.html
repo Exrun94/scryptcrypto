@@ -36,41 +36,48 @@
         <tr *ngFor="let coin of coinsData | orderBy: key: reverse | paginate:{itemsPerPage:25, currentPage:p};">
             <th scope="row">{{coin.market_cap_rank}}</th>
             <td><img class="icon" src="{{coin.image}}"></td>
-            <td>{{coin.name}}<span class="text-muted"> {{coin.symbol.toUpperCase()}}</span></td>
+            <td>
+                <a 
+                    class="anchor-hover" 
+                    (click)="coinDetails(coin.id)"
+                    routerLink="">{{coin.name}}
+                </a>
+                <span class="text-muted"> {{coin.symbol.toUpperCase()}}</span>
+            </td>
             <td>${{coin.current_price}}</td>
             <td
-             *ngIf="coin.price_change_percentage_1h_in_currency > 0 && coin.price_change_percentage_1h_in_currency !== null"
+             *ngIf="coin?.price_change_percentage_1h_in_currency > 0"
               style="color:yellowgreen;">
-                {{coin.price_change_percentage_1h_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_1h_in_currency.toFixed(1) || 'N/A'}}%
             </td>
             <td
              *ngIf="coin.price_change_percentage_1h_in_currency < 0"
               style="color:tomato;">
-                {{coin.price_change_percentage_1h_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_1h_in_currency.toFixed(1) || 'N/A'}}%
             </td>
             <td
              *ngIf="coin.price_change_percentage_24h_in_currency > 0"
               style="color:yellowgreen;">
-                {{coin.price_change_percentage_24h_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_24h_in_currency.toFixed(1) || 'N/A'}}%
             </td>
             <td
              *ngIf="coin.price_change_percentage_24h_in_currency < 0"
               style="color:tomato;">
-                {{coin.price_change_percentage_24h_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_24h_in_currency.toFixed(1) || 'N/A'}}%
             </td>
             <td
              *ngIf="coin.price_change_percentage_7d_in_currency > 0"
               style="color:yellowgreen;">
-                {{coin.price_change_percentage_7d_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_7d_in_currency.toFixed(1) || 'N/A'}}%
             </td>
             <td
              *ngIf="coin.price_change_percentage_7d_in_currency < 0"
               style="color:tomato;">
-                {{coin.price_change_percentage_7d_in_currency.toFixed(1)}}%
+                {{coin?.price_change_percentage_7d_in_currency.toFixed(1) || 'N/A'}}%
             </td>
-            <td>${{coin.market_cap.toLocaleString()}}</td>
-            <td>${{coin.total_volume.toLocaleString()}}</td>
-            <td *ngIf="coin.total_supply !== null">{{coin.circulating_supply.toLocaleString()}}
+            <td *ngIf="coin.market_cap">${{coin?.market_cap.toLocaleString() || 'N/A'}}</td>
+            <td>${{coin?.total_volume.toLocaleString() || 'N/A'}}</td>
+            <td *ngIf="coin.total_supply !== null">{{coin?.circulating_supply.toLocaleString() || 'N/A'}}
                 <span class="fw-normal"> {{coin.symbol.toUpperCase()}}</span>
                 <div class="progress" style="height: 10px;">
                     <div class="progress-bar" 
@@ -81,7 +88,7 @@
                     </div>
                   </div>
             </td>
-            <td *ngIf="coin.total_supply == null">{{coin.circulating_supply.toLocaleString()}}
+            <td *ngIf="coin.total_supply == null">{{coin?.circulating_supply.toLocaleString() || 'N/A'}}
                 <span class="fw-normal"> {{coin.symbol.toUpperCase()}}</span>
             </td>
             <td><img class="chart" src="https://www.coingecko.com/coins/{{coin.image.split('/')[5]}}/sparkline"></td>
