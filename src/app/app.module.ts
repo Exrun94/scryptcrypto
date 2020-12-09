@@ -10,12 +10,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CryptoListComponent } from './crypto-list/crypto-list.component';
+import { PaginationComponent } from './crypto-list/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CryptoListComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
