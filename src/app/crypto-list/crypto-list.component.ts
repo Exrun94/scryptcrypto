@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit,  } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICoins } from '../interfaces';
-import { CoinsService } from '../services/coins.service';
+import { CoinsService } from '../services';
 
 
 @Component({
@@ -8,19 +9,27 @@ import { CoinsService } from '../services/coins.service';
   templateUrl: './crypto-list.component.html',
   styleUrls: ['./crypto-list.component.css']
 })
-export class CryptoListComponent implements OnInit {
+export class CryptoListComponent implements OnInit, OnDestroy {
+
 
   coinsData: ICoins[] = [];
   p: number = 1;
   currency: any;
   key: any;
   reverse: boolean = false;
+  coin: any;
 
-  constructor(private coinsService: CoinsService) { }
+  private _dataSubscription: any;
+
+  constructor(
+    private coinsService: CoinsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    ){}
 
 
   ngOnInit(): void {
-    this.coinsService.getData().subscribe((data) => {
+    this._dataSubscription = this.coinsService.getData().subscribe((data) => {
       console.log(data)
       this.coinsData = data;
     })
@@ -39,6 +48,15 @@ export class CryptoListComponent implements OnInit {
   sort(key: any) {
     this.key = key;
     this.reverse = !this.reverse;
+  }
+
+  coinDetails(id: any) {
+    this.router.navigate([id], { relativeTo: this.route })
+  }
+
+
+  ngOnDestroy(){
+    this._dataSubscription.unsubscribe()
   }
 
 
