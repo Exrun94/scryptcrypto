@@ -13,6 +13,8 @@ export class CryptoListComponent implements OnInit {
   coinsData: ICoins[] = [];
   p: number = 1;
   currency: any;
+  key: any;
+  reverse: boolean = false;
 
   constructor(private coinsService: CoinsService) { }
 
@@ -33,9 +35,6 @@ export class CryptoListComponent implements OnInit {
       })
     }
   }
-
-  key: any;
-  reverse: boolean = false;
 
   sort(key: any) {
     this.key = key;
