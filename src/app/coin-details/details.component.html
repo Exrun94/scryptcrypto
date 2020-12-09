@@ -1,0 +1,135 @@
+<br>
+<br>
+<ng-container *ngIf="coinsData && marketData">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-4">
+					<h3>
+            <img src="{{coinsData.image.small}}" alt="">
+            {{coinsData.name}}<span> ({{coinsData.symbol.toLocaleUpperCase()}})</span>
+					</h3>
+					<ul>
+						<li class="list-item">
+              <i class="fas fa-hashtag"></i>
+              <span class="badge rounded-pill bg-success">Rank {{coinsData.market_cap_rank}}</span>
+						</li>
+						<li class="list-item">
+              <i class="fas fa-link"></i>
+              <a href="{{coinsData.links.homepage[0]}}">Website</a>
+						</li>
+						<li class="list-item">
+              <i class="fas fa-code"></i>
+              <a href="{{coinsData.links.repos_url.github[0]}}">Source code</a>
+						</li>
+						<li class="list-item">
+              <i class="far fa-comment-alt"></i>
+              <a href="{{coinsData.links.official_forum_url[0]}}">Message Board</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h3>
+            ${{marketData[0].current_price}}
+             <span *ngIf="marketData[0].market_cap_change_percentage_24h > 0" style="color:yellowgreen;">
+               ({{marketData[0].market_cap_change_percentage_24h.toFixed(2)}}%)
+              </span>
+              <span *ngIf="marketData[0].market_cap_change_percentage_24h < 0" style="color:tomato;">
+                ({{marketData[0].market_cap_change_percentage_24h.toFixed(2)}}%)
+               </span>
+					</h3>
+				</div>
+				<div class="col-md-4">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th>
+									
+								</th>
+								<th>
+									
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<strong>All time High:</strong>
+								</td>
+								<td>
+									${{marketData[0].ath}}
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>ATH % change:</strong>
+								</td>
+								<td *ngIf="marketData[0].ath_change_percentage > 0" style="color: yellowgreen">
+									{{marketData[0].ath_change_percentage.toFixed(2)}}%
+                </td>
+                <td *ngIf="marketData[0].ath_change_percentage < 0" style="color: tomato">
+									{{marketData[0].ath_change_percentage.toFixed(2)}}%
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>ATH Date:</strong>
+								</td>
+								<td>
+									{{marketData[0].ath_date | date}}
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>MarketCap:</strong>
+								</td>
+								<td>
+									${{marketData[0].market_cap.toLocaleString()}}
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>Circulating Supply</strong>
+								</td>
+								<td>
+									{{marketData[0].circulating_supply.toLocaleString()}}
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>Max Supply:</strong>
+								</td>
+								<td>
+									{{marketData[0]?.max_supply || 'n/a' }}
+								</td>
+              </tr>
+              <tr>
+								<td>
+									<strong>Total Volume:</strong>
+								</td>
+								<td>
+									${{marketData[0].total_volume.toLocaleString()}}
+								</td>
+              </tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+          <h3>History</h3>
+					<p [innerHTML]="coinsData.description.en"></p>
+				</div>
+				<div class="col-md-4">
+					<h3>
+						Exchanges:
+          </h3>
+          <p>test</p>
+          <p>test</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</ng-container>
