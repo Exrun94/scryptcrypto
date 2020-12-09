@@ -1,1 +1,81 @@
-<p>crypto-list works!</p>
+<!-- <div *ngIf="!coinsData | async" class="text-center">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+</div> -->
+
+<div>
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th class="col">#</th>
+            <th class="col"></th>
+            <th class="col">Currency</th>
+            <th class="col">Price</th>
+            <th class="col">1h</th>
+            <th class="col">24h</th>
+            <th class="col">7d</th>
+            <th class="col">Market Cap</th>
+            <th class="col">Volume</th>
+            <th class="col">Circulating Supply</th>
+            <th class="col">7 Days Change</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let coin of coinsData">
+            <th scope="row">{{coin.market_cap_rank}}</th>
+            <td><img class="icon" src="{{coin.image}}"></td>
+            <td>{{coin.name}}<span class="text-muted"> {{coin.symbol.toUpperCase()}}</span></td>
+            <td>${{coin.current_price}}</td>
+            <td
+             *ngIf="coin.price_change_percentage_1h_in_currency > 0"
+              style="color:yellowgreen;">
+                {{coin.price_change_percentage_1h_in_currency.toFixed(1)}}%
+            </td>
+            <td
+             *ngIf="coin.price_change_percentage_1h_in_currency < 0"
+              style="color:tomato;">
+                {{coin.price_change_percentage_1h_in_currency.toFixed(1)}}%
+            </td>
+            <td
+             *ngIf="coin.price_change_percentage_24h_in_currency > 0"
+              style="color:yellowgreen;">
+                {{coin.price_change_percentage_24h_in_currency.toFixed(1)}}%
+            </td>
+            <td
+             *ngIf="coin.price_change_percentage_24h_in_currency < 0"
+              style="color:tomato;">
+                {{coin.price_change_percentage_24h_in_currency.toFixed(1)}}%
+            </td>
+            <td
+             *ngIf="coin.price_change_percentage_7d_in_currency > 0"
+              style="color:yellowgreen;">
+                {{coin.price_change_percentage_7d_in_currency.toFixed(1)}}%
+            </td>
+            <td
+             *ngIf="coin.price_change_percentage_7d_in_currency < 0"
+              style="color:tomato;">
+                {{coin.price_change_percentage_7d_in_currency.toFixed(1)}}%
+            </td>
+            <td>${{coin.market_cap.toLocaleString()}}</td>
+            <td>${{coin.total_volume.toLocaleString()}}</td>
+            <td *ngIf="coin.total_supply !== null">{{coin.circulating_supply.toLocaleString()}}
+                <span class="fw-normal"> {{coin.symbol.toUpperCase()}}</span>
+                <div class="progress" style="height: 10px;">
+                    <div class="progress-bar" 
+                      role="progressbar"
+                      [ngStyle]="{'width': ((coin.circulating_supply / coin.total_supply) * 100).toFixed(0) + '%'}"
+                      attr.aria-valuenow="{{ coin.circulating_supply / coin.total_supply }}"
+                      aria-valuemax="100">
+                    </div>
+                  </div>
+            </td>
+            <td *ngIf="coin.total_supply == null">{{coin.circulating_supply.toLocaleString()}}
+                <span class="fw-normal"> {{coin.symbol.toUpperCase()}}</span>
+            </td>
+            <td><img class="chart" src="https://www.coingecko.com/coins/{{coin.image.split('/')[5]}}/sparkline"></td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
