@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CryptoListComponent } from './crypto-list/crypto-list.component';
 import { DetailsComponent } from './coin-details/details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ExchangesComponent } from './exchanges/exchanges.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'crypto-list/:id',
     component: DetailsComponent,
+  },
+  {
+    path: 'exchanges',
+    component: ExchangesComponent,
   },
 
 ];
