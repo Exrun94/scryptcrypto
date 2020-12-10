@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let exchange of exchanges">
+            <div class="card text-dark bg-light mb-3" style="width: 20rem;">
+                <img src="{{exchange.image.replace('small', 'large')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{exchange.name}}</h5>
+
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Rank: <span class="item-data">{{exchange.trust_score_rank}}</span></li>
+                    <li class="list-group-item">Established: <span
+                            class="item-data">{{exchange.year_established}}</span></li>
+                    <li class="list-group-item">Trade Volume: <span
+                            class="item-data">{{exchange.trade_volume_24h_btc.toFixed(0)}} (BTC)</span></li>
+                </ul>
+                <div class="card-body">
+                    <a href="{{exchange.url}}" class="card-link">
+                        <button type="button" class="btn btn-dark">Visit</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
