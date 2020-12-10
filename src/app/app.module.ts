@@ -15,6 +15,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './coin-details/details.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { ExchangesComponent } from './exchanges/exchanges.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { DetailsComponent } from './coin-details/details.component';
     DashboardComponent,
     CryptoListComponent,
     DetailsComponent,
+    LoadingSpinnerComponent,
+    ExchangesComponent,
   ],
   imports: [
     BrowserModule,
