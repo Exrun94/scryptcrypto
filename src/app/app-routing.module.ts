@@ -4,6 +4,8 @@ import { CryptoListComponent } from './crypto-list/crypto-list.component';
 import { DetailsComponent } from './coin-details/details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ExchangesComponent } from './exchanges/exchanges.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,14 @@ const routes: Routes = [
     path: 'exchanges',
     component: ExchangesComponent,
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  }
 
 ];
 

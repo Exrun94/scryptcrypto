@@ -1,0 +1,35 @@
+<div class="text-center mt-5">
+  <form
+  #formData="ngForm"
+  (ngSubmit)="onSubmit(formData)"
+  style="max-width:480px; margin: auto;">
+
+    <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+    <label class="sr-only">Username</label>
+
+    <input
+    for="username"
+    type="username"
+    name="username"
+    class="form-control"
+    placeholder="Username"
+    ngModel
+    required
+    autofocus>
+
+    <input
+    for="password"
+    type="password"
+    name="password"
+    class="form-control"
+    placeholder="Password"
+    ngModel
+    required>
+
+    <a [routerLink]='["/register"]'>Forgot Password?</a>
+    <div class="d-grid gap-2 mt-3">
+      <button class="btn btn-lg btn-primary btn-block">Login</button>
+    </div>
+
+  </form>
+</div>
