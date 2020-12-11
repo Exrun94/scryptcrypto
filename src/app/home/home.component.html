@@ -1,3 +1,6 @@
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+
+<div *ngIf="!showSpinner">
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <ol class="carousel-indicators">
       <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
@@ -50,7 +53,7 @@
       </div>
   </div>
 </section>
-<!-- ISTRUCTORS CARDS -->
+<!-- Showcase CARDS -->
 <section id="instructors">
   <h1 class="mx-auto text-center">Showcase</h1>
   <div class="container">
@@ -69,3 +72,4 @@
 
   </div>
 </section>
+</div>

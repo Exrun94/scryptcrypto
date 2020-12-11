@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit,  } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoins } from '../interfaces';
 import { CoinsService } from '../services';
@@ -18,6 +18,7 @@ export class CryptoListComponent implements OnInit, OnDestroy {
   key: any;
   reverse: boolean = false;
   coin: any;
+  showSpinner: boolean = true;
 
   private _dataSubscription: any;
 
@@ -25,19 +26,19 @@ export class CryptoListComponent implements OnInit, OnDestroy {
     private coinsService: CoinsService,
     private router: Router,
     private route: ActivatedRoute,
-    ){}
+  ) { }
 
 
   ngOnInit(): void {
     this._dataSubscription = this.coinsService.getData().subscribe((data) => {
-      console.log(data)
+      this.showSpinner = false;
       this.coinsData = data;
     })
   }
 
   currencySearchBar() {
-    if(this.currency == '') {
-     this.ngOnInit();
+    if (this.currency == '') {
+      this.ngOnInit();
     } else {
       this.coinsData = this.coinsData.filter(res => {
         return res.name.toLowerCase().match(this.currency.toLowerCase());
@@ -55,7 +56,7 @@ export class CryptoListComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._dataSubscription.unsubscribe()
   }
 

@@ -15,11 +15,12 @@ export class DetailsComponent implements OnInit, OnChanges {
   public currentCoin: string = "";
   coinsData!: ICoinsDetails;
   marketData!: IMarketData[];
+  showSpinner: boolean = true;
 
   constructor(
-    private coinDetailService: CoinDetailsService, 
+    private coinDetailService: CoinDetailsService,
     private router: Router,
-    ){}
+  ) { }
 
 
 
@@ -31,7 +32,8 @@ export class DetailsComponent implements OnInit, OnChanges {
       this.coinsData = data
     })
 
-    this.coinDetailService.getMarketData(this.currentCoin).subscribe((data)=> {
+    this.coinDetailService.getMarketData(this.currentCoin).subscribe((data) => {
+      this.showSpinner = false;
       console.log(data)
       this.marketData = data;
     })

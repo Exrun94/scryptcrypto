@@ -1,13 +1,9 @@
-<!-- <div *ngIf="!coinsData | async" class="text-center">
-    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-</div> -->
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
 
 
 
 <div>
-    
+
     <nav class="navbar">
         <input class="form-control" type="text" name="currency" [(ngModel)]="currency" (ngModelChange)="currencySearchBar()"
         placeholder="Search for a currency">
@@ -15,7 +11,7 @@
     <div class="d-flex justify-content-center">
         <pagination-controls (pageChange) = "p = $event"></pagination-controls>
     </div>
-    
+
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
@@ -37,8 +33,8 @@
             <th scope="row">{{coin.market_cap_rank}}</th>
             <td><img class="icon" src="{{coin.image}}"></td>
             <td>
-                <a 
-                    class="anchor-hover" 
+                <a
+                    class="anchor-hover"
                     (click)="coinDetails(coin.id)"
                     routerLink="">{{coin.name}}
                 </a>
@@ -80,7 +76,7 @@
             <td *ngIf="coin.total_supply !== null">{{coin?.circulating_supply.toLocaleString() || 'N/A'}}
                 <span class="fw-normal"> {{coin.symbol.toUpperCase()}}</span>
                 <div class="progress" style="height: 10px;">
-                    <div class="progress-bar" 
+                    <div class="progress-bar"
                       role="progressbar"
                       [ngStyle]="{'width': ((coin.circulating_supply / coin.total_supply) * 100).toFixed(0) + '%'}"
                       attr.aria-valuenow="{{ coin.circulating_supply / coin.total_supply }}"

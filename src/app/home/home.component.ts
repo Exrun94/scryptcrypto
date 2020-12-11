@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   coinsData: ICoins[] = [];
   coinDetails: ICoinsDetails[] = []
+  showSpinner: boolean = true;
 
 
   constructor(private showcaseService: ShowcaseService, private coinDetailsService: CoinDetailsService) { }
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
 
       _.forEach(this.coinsData, (val) => {
         this.coinDetailsService.getCurrencyDetails(val.id).subscribe(data => {
+          this.showSpinner = false;
           this.coinDetails.push(data)
           console.log(this.coinDetails)
         })
