@@ -19,6 +19,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { ExchangesComponent } from './exchanges/exchanges.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { RegisterComponent } from './register/register.component';
     ExchangesComponent,
     LoginComponent,
     RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
