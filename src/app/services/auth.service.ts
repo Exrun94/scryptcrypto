@@ -44,8 +44,9 @@ export class AuthService {
     this.status = this.httpClient.post(`${this.baseUrl}/login`,
       JSON.stringify({ username: username, password: password }),
       { headers: this.headers })
+    console.log(status)
 
-    if (status) {
+    if (!status) {
       this.IsLoggedInEmiter.emit(this.isLoggedIn = true)
       return this.status
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,12 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService: AuthService, private cookie: CookieService) { }
+  constructor(
+    private authService: AuthService,
+    private cookie: CookieService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -25,7 +31,7 @@ export class RegisterComponent implements OnInit {
       //this.isLoggedIn = true
       this.cookie.put('aid', res.token)
       this.cookie.put('user', res.user)
-
+      this.router.navigate(['/'])
     })
   }
 

@@ -1,7 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { AuthService } from '../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Component({
@@ -11,8 +13,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  isLoggedIn!: boolean;
 
-  constructor(private authService: AuthService, private cookie: CookieService) { }
+  constructor(
+    private authService: AuthService,
+    private cookie: CookieService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
     this.authService.emitStatus().subscribe((isLogged: boolean) => {
@@ -26,10 +34,10 @@ export class LoginComponent implements OnInit {
     //console.log(username, password)
     this.authService.login(username, password).subscribe((res) => {
       console.log(res)
-      //this.isLoggedIn = true
+      this.isLoggedIn = true
       this.cookie.put('aid', res.token)
       this.cookie.put('user', res.user)
-
+      this.router.navigate(['/'])
     })
   }
 
