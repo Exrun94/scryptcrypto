@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit {
     if (this.cookie.get('aid')) {
       this.isLoggedIn = true
       this.user = this.cookie.get('user')
+      this.authService.emitStatus().subscribe((isLogged: boolean) => {
+        console.log(isLogged)
+        this.isLoggedIn = true;
+      })
     }
 
   }
