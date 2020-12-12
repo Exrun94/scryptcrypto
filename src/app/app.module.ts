@@ -22,7 +22,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './services/auth.guard';
-import { CreateWidgetComponent } from './create-widget/create-widget.component';
 
 
 @NgModule({
@@ -36,7 +35,6 @@ import { CreateWidgetComponent } from './create-widget/create-widget.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    CreateWidgetComponent,
   ],
   imports: [
     BrowserModule,
