@@ -7,6 +7,7 @@ import { ExchangesComponent } from './exchanges/exchanges.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,19 +17,23 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'crypto-list',
     component: CryptoListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'crypto-list/:id',
     component: DetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'exchanges',
     component: ExchangesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

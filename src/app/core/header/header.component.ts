@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private cookie: CookieService) { }
 
   ngOnInit(): void {
-    if (this.cookie.get('aid')) {
+    if (localStorage.getItem('token')) {
       this.isLoggedIn = true
       this.user = this.cookie.get('user')
       this.authService.emitStatus().subscribe((isLogged: boolean) => {
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.cookie.remove('aid')
+    localStorage.removeItem('token')
     this.isLoggedIn = false
   }
 

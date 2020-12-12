@@ -2,7 +2,6 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError, retry, } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
 
 
 @Injectable({
@@ -44,10 +43,10 @@ export class AuthService {
     this.status = this.httpClient.post(`${this.baseUrl}/login`,
       JSON.stringify({ username: username, password: password }),
       { headers: this.headers })
-    console.log(status)
+    console.log('status: ' + status)
 
     if (!status) {
-      this.IsLoggedInEmiter.emit(this.isLoggedIn = true)
+      this.IsLoggedInEmiter.emit(this.isLoggedIn)
       return this.status
     }
     return this.status
@@ -61,6 +60,18 @@ export class AuthService {
 
   emitStatus() {
     return this.IsLoggedInEmiter;
+  }
+
+  getToken() {
+    return localStorage.getItem('token')
+  }
+
+  authInfo() {
+    if (localStorage.getItem('token')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
