@@ -15,7 +15,7 @@ export class ExchangesComponent implements OnInit {
 
   ngOnInit(): void {
     this.exchangesServices.getData().subscribe((data) => {
-      console.log(data)
+      // console.log(data)
       this.exchanges = data;
     })
   }

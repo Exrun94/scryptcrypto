@@ -1,7 +1,7 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { catchError, retry, } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,10 +15,8 @@ export class AuthService {
 
   })
 
-  status!: Observable<any>;
   isLoggedIn!: boolean;
-
-  @Output() IsLoggedInEmiter: EventEmitter<any> = new EventEmitter<any>();
+  private status = new Subject<boolean>();
 
 
   private handleError(error: HttpErrorResponse) {
@@ -40,26 +38,17 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    this.status = this.httpClient.post(`${this.baseUrl}/login`,
+    return this.httpClient.post(`${this.baseUrl}/login`,
       JSON.stringify({ username: username, password: password }),
       { headers: this.headers })
-    console.log('status: ' + status)
 
-    if (!status) {
-      this.IsLoggedInEmiter.emit(this.isLoggedIn)
-      return this.status
-    }
-    return this.status
   }
 
   register(username: string, password: string): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/register`,
       JSON.stringify({ username: username, password: password }),
       { headers: this.headers })
-  }
 
-  emitStatus() {
-    return this.IsLoggedInEmiter;
   }
 
   getToken() {
@@ -74,6 +63,12 @@ export class AuthService {
     }
   }
 
+  sendStatus(isLoggedIn: boolean) {
+    this.status.next(isLoggedIn)
+  }
 
+  getStatus() {
+    return this.status.asObservable();
+  }
 
 }

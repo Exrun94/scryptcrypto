@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  isLoggedIn!: boolean;
+
 
   constructor(
     private authService: AuthService,
@@ -20,17 +22,21 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
   onSubmit(formData: NgForm) {
     const username = formData.value.username;
     const password = formData.value.password;
-    //console.log(username, password)
+
     this.authService.register(username, password).subscribe((res) => {
-      console.log(res)
-      //this.isLoggedIn = true
-      this.cookie.put('aid', res.token)
-      this.cookie.put('user', res.user)
+      this.isLoggedIn = true
+
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('user', res.user)
+
+      this.authService.sendStatus(this.isLoggedIn)
+
       this.router.navigate(['/'])
     })
   }

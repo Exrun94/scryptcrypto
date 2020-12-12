@@ -23,9 +23,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.emitStatus().subscribe((isLogged: boolean) => {
-      console.log(isLogged)
-    })
+    // this.authService.emitStatus().subscribe((isLogged: boolean) => {
+    //   console.log(isLogged)
+    //   this.isLoggedIn = true;
+
+    // })
   }
 
   onSubmit(formData: NgForm) {
@@ -37,11 +39,12 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true
       localStorage.setItem('token', res.token)
       localStorage.setItem('user', res.user)
-
-      this.cookie.put('aid', res.token)
-      this.cookie.put('user', res.user)
+      this.authService.sendStatus(this.isLoggedIn)
+      // this.cookie.put('aid', res.token)
+      // this.cookie.put('user', res.user)
       this.router.navigate(['/'])
     })
   }
+
 
 }

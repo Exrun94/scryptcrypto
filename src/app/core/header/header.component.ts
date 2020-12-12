@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { AuthService } from 'src/app/services';
 
@@ -10,26 +11,29 @@ import { AuthService } from 'src/app/services';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn!: boolean;
-  user!: string;
+  user!: string | null;
 
-  constructor(private authService: AuthService, private cookie: CookieService) { }
+  constructor(private authService: AuthService, private cookie: CookieService, private router: Router) {
+
+    this.authService.getStatus().subscribe(status => {
+      this.isLoggedIn = status;
+    })
+  }
+
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.isLoggedIn = true
-      this.user = this.cookie.get('user')
-      this.authService.emitStatus().subscribe((isLogged: boolean) => {
-        console.log(isLogged)
-        this.isLoggedIn = true;
-      })
+      this.user = localStorage.getItem('user')
     }
 
   }
 
   onLogout() {
-    this.cookie.remove('aid')
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     this.isLoggedIn = false
+    this.router.navigate([''])
   }
 
 }

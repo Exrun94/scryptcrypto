@@ -1,0 +1,91 @@
+<div class="text-center" *ngIf="!user_widgets[0]">
+  <h2 class="text-center mt-5">You have no Widgets yet!</h2>
+</div>
+
+<div class="text-center">
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Create new Widget
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <form
+      #formData="ngForm"
+      (ngSubmit)="onSubmit(formData)"
+      style="max-width:480px; margin: auto;">
+
+        <h1 class="h3 mb-3 font-weight-normal">Choose Currency</h1>
+        <label class="sr-only">Currency</label>
+
+        <select (change)="onChange($event.target.value)">
+          <option selected disabled>--Choose currency--</option>
+          <option *ngFor="let coin of currencies" value="{{coin.name}}">{{coin.name}}</option>
+        </select>
+
+
+        <input
+        for="price"
+        type="price"
+        name="price"
+        class="form-control"
+        placeholder="buy price"
+        ngModel
+        required>
+
+        <input
+        for="amount"
+        type="amount"
+        name="amount"
+        class="form-control"
+        placeholder="Amount"
+        ngModel
+        required>
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-lg btn-primary btn-block">Create</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container bootdey">
+  <div class="row">
+    <div class="col-6 text-center mt-5" *ngFor="let widget of user_widgets">
+      <div class="box box-widget widget-user">
+        <div class="widget-user-header bg-aqua">
+          <h3 class="widget-user-username">{{widget.currency}}</h3>
+        </div>
+        <div class="widget-user-image">
+          <img class="img-circle" src="{{widget.image}}" alt="User Avatar">
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <h5 class="description-header">${{widget.price}}</h5>
+                <span class="description-text">BUY PRICE</span>
+              </div>
+            </div>
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{widget.amount}}</h5>
+                <span class="description-text">Amount</span>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="description-block">
+                <h5 class="description-header">${{(widget.amount * widget.price).toFixed(2)}}</h5>
+                <span class="description-text">TOTAL</span>
+              </div>
+            </div>
+            <button (click)="onDelete(widget._id)" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

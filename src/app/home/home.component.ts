@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
         this.coinDetailsService.getCurrencyDetails(val.id).subscribe(data => {
           this.showSpinner = false;
           this.coinDetails.push(data)
-          console.log(this.coinDetails)
+          // console.log(this.coinDetails)
         })
       })
 
