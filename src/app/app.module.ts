@@ -10,6 +10,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service'
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 import { AppComponent } from './app.component';
@@ -22,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './services/auth.guard';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -35,6 +38,7 @@ import { AuthGuard } from './services/auth.guard';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,8 @@ import { AuthGuard } from './services/auth.guard';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     Ng2OrderModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     CookieService,
