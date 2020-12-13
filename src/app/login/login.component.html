@@ -1,35 +1,29 @@
-<div class="text-center mt-5">
-  <form
-  #formData="ngForm"
-  (ngSubmit)="onSubmit(formData)"
-  style="max-width:480px; margin: auto;">
 
-    <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
-    <label class="sr-only">Username</label>
+  <h5 class="card-header text-center">Login</h5>
+  <div class="card-body" style="max-width:480px; margin: auto;">
+      <form class="text-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+          <div class="form-group">
+              <label>Email</label>
+              <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col">
+                  <label>Password</label>
+                  <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">Password is required</div>
+                      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                  </div>
+              </div>
 
-    <input
-    for="username"
-    type="username"
-    name="username"
-    class="form-control"
-    placeholder="Username"
-    ngModel
-    required
-    autofocus>
-
-    <input
-    for="password"
-    type="password"
-    name="password"
-    class="form-control"
-    placeholder="Password"
-    ngModel
-    required>
-
-    <a [routerLink]='["/register"]'>Forgot Password?</a>
-    <div class="d-grid gap-2 mt-3">
-      <button class="btn btn-lg btn-primary btn-block">Login</button>
-    </div>
-
-  </form>
-</div>
+          </div>
+          <div class="text-center m-3">
+              <button class="btn btn-primary">Login</button>
+              <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+          </div>
+      </form>
+  </div>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// import custom validator to validate that password and confirm password fields match
+import { MustMatch } from '../../assets/_helpers/must-match.validator';
 import { AuthService } from '../services/auth.service';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,34 +13,75 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  isLoggedIn!: boolean;
 
+  isLoggedIn!: boolean;
+  registerForm!: FormGroup;
+  submitted = false;
 
   constructor(
     private authService: AuthService,
-    private cookie: CookieService,
     private router: Router,
-    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
   }
 
-  onSubmit(formData: NgForm) {
-    const username = formData.value.username;
-    const password = formData.value.password;
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
 
-    this.authService.register(username, password).subscribe((res) => {
-      this.isLoggedIn = true
+  onSubmit() {
+    this.submitted = true;
+    const email = this.f.email.value;
+    const password = this.f.password.value;
 
-      localStorage.setItem('token', res.token)
-      localStorage.setItem('user', res.user)
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    } else {
+      this.authService.register(email, password).subscribe((res) => {
+        this.isLoggedIn = true
 
-      this.authService.sendStatus(this.isLoggedIn)
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('user', res.user)
 
-      this.router.navigate(['/'])
-    })
+        this.authService.sendStatus(this.isLoggedIn)
+
+        this.router.navigate(['/'])
+      })
+    }
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.registerForm.reset();
   }
 
 }
+    // display form values on success
+    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+
+  //   onSubmit1(formData: any) {
+  //     const username = formData.value.username;
+  //     const password = formData.value.password;
+
+  //     this.authService.register(username, password).subscribe((res) => {
+  //       this.isLoggedIn = true
+
+  //       localStorage.setItem('token', res.token)
+  //       localStorage.setItem('user', res.user)
+
+  //       this.authService.sendStatus(this.isLoggedIn)
+
+  //       this.router.navigate(['/'])
+  //     })
+  //   }
+
+  // }

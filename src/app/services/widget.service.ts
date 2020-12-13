@@ -15,17 +15,17 @@ export class WidgetService {
 
   constructor(private httpClient: HttpClient) { }
 
-  createWidgets(username: any, currency: any, value: any, price: any, imageUrl: any): Observable<any> {
+  createWidgets(email: any, currency: any, value: any, price: any, imageUrl: any): Observable<any> {
     const headers = new HttpHeaders({ 'content-type': 'application/json' })
     return this.httpClient.post(`${this.baseUrl}/widgets`,
-      JSON.stringify({ username: username, currency: currency, value: value, price: price, image: imageUrl }),
+      JSON.stringify({ email: email, currency: currency, value: value, price: price, image: imageUrl }),
       { headers: headers }
 
     )
   }
 
-  getWidgets(username: string): Observable<any> {
-    const headers = new HttpHeaders({ 'user': username, })
+  getWidgets(email: string): Observable<any> {
+    const headers = new HttpHeaders({ 'email': email, })
 
     return this.httpClient.get(`${this.baseUrl}/widgets`, { headers: headers })
   }

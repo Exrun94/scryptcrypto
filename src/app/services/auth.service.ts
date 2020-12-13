@@ -28,7 +28,7 @@ export class AuthService {
       // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.message}`);
     }
     // Return an observable with a user-facing error message.
     return throwError(
@@ -37,16 +37,20 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/login`,
-      JSON.stringify({ username: username, password: password }),
-      { headers: this.headers })
-
+      JSON.stringify({ email: email, password: password }),
+      { headers: this.headers }).pipe(
+        catchError(this.handleError))
   }
 
-  register(username: string, password: string): Observable<any> {
+
+
+
+
+  register(email: string, password: string): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/register`,
-      JSON.stringify({ username: username, password: password }),
+      JSON.stringify({ email: email, password: password }),
       { headers: this.headers })
 
   }
